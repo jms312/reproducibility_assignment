@@ -1,0 +1,217 @@
+---
+title: "Reproducibility Report"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+# Report Details
+
+```{r}
+articleID <- "2-10-2014" # insert the article ID code here e.g., "10-3-2015"
+reportType <- 'pilot' # specify whether this is the 'pilot' report or 'copilot' report
+pilotNames <- "Julian M Siebert" # insert the pilot's name here e.g., "Tom Hardwicke".
+copilotNames <- NA # # insert the co-pilot's name here e.g., "Michael Frank".
+pilotTTC <- NA # insert the pilot's estimated time to complete (in minutes, it is fine to approximate) e.g., 120
+copilotTTC <- 240 # insert the co-pilot's estimated time to complete (in minutes, it is fine to approximate) e.g., 120
+pilotStartDate <- as.Date("10/30/19", format = "%m/%d/%y") # insert the piloting start date in US format e.g., as.Date("01/25/18", format = "%m/%d/%y")
+copilotStartDate <- NA # insert the co-piloting start date in US format e.g., as.Date("01/25/18", format = "%m/%d/%y")
+completionDate <- as.Date("11/03/19", format = "%m/%d/%y") # insert the date of final report completion in US format e.g., as.Date("01/25/18", format = "%m/%d/%y")
+```
+
+------
+
+#### Methods summary: 
+
+They authors provide descriptive statistics of participants' ratings of their curiosity about and interest in reflections they made at two points in time; they wrote down the reflections at Time 1, and were exposed to them again at Time 2. Ratings were collected at both times and descriptives (M and SD) for both points in time are presented.
+The authors further report repeated-measures $t$-tests comparing curiosity and interest predicted at Time 1 to actual curiosity and interest experienced at Time 2 (three months later). All values at both times are collapsed across nine individually posed prompts.
+
+------
+
+#### Target outcomes: 
+
+Quoted from original study:
+
+>Table 1 provides descriptive statistics for each measure
+for Study 1.
+
+> Participants’ Time 1 predictions of their curiosity (M = 3.99, SD = 1.32) were lower than their actual curiosity ratings at Time 2, immediately before reading their responses (M = 4.34, SD = 1.25), t(105) = 2.88, p = .005, d = 0.27. Participants also underestimated how interesting they would find their responses. Predictions of interest at Time 1 (M = 3.54, SD = 1.01) were lower than ratings of actual interest experienced at Time 2 (M = 3.82, SD = 0.89), t(105) = 3.10, p = .003, d = 0.29.
+
+All information to reproduce these outcomes is available.
+
+------
+
+```{r global_options, include=FALSE}
+# sets up some formatting options for the R Markdown document
+knitr::opts_chunk$set(echo=TRUE, warning=FALSE, message=FALSE)
+```
+
+# Step 1: Load packages and prepare report object
+
+```{r}
+# load packages
+library(tidyverse) # for data munging
+library(knitr) # for kable table formating
+library(haven) # import and export 'SPSS', 'Stata' and 'SAS' Files
+library(readxl) # import excel files
+library(ReproReports) # custom reporting functions
+```
+
+```{r}
+# Prepare report object. This will be updated automatically by the reproCheck function each time values are compared
+reportObject <- data.frame(dummyRow = TRUE, reportedValue = NA, obtainedValue = NA, valueType = NA, percentageError = NA, comparisonOutcome = NA, eyeballCheck = NA)
+```
+
+# Step 2: Load data
+
+Data read into R using read_sav from the haven library.
+
+```{r}
+  original_data <- read_sav("GroupC_2-10-2014/data/Study1_Data.sav")
+```
+
+# Step 3: Tidy data
+
+Creating a dataframe to be cleaned, leaving the original intact:
+
+```{r}
+cleaned_data <- original_data
+```
+
+Changing one column name and making minor formatting changes to prepare cleaned_data for converstion into longer format.
+
+```{r}
+colnames(cleaned_data)[colnames(cleaned_data)=="T2_Finished"] <- "Finished"
+names(cleaned_data) <- tolower(names(cleaned_data))
+```
+
+# Step 4: Run analysis
+
+Filtering the dataframe, only selecting those who completed surveys at both Times 1 and 2.
+
+## Pre-processing
+
+```{r}
+analysis_data <- cleaned_data %>%
+  filter(finished == 1)
+analysis_data
+
+```
+
+## Descriptive statistics
+
+Below are quotes from the original article (separate chunkgs for curiosity and interest ratings). All results could be reproduced.
+
+> Participants’ Time 1 predictions of their curiosity (M = 3.99, SD = 1.32) 
+> actual curiosity ratings at Time 2, immediately before read- ing their responses (M = 4.34, SD = 1.25)
+
+
+```{r}
+
+# mean curiosity ratings and SDs for Times 1 and 2
+mean_curiosity_t1 <- mean(analysis_data$t1_curious)
+reportObject <- reproCheck(reportedValue = '3.99', obtainedValue = mean_curiosity_t1, valueType = 'mean')
+
+mean_curiosity_t2 <- mean(analysis_data$t2_curious)
+reportObject <- reproCheck(reportedValue = '4.34', obtainedValue = mean_curiosity_t2, valueType = 'mean')
+
+sd_curiosity_t1 <- sd(analysis_data$t1_curious)
+reportObject <- reproCheck(reportedValue = '1.32', obtainedValue = sd_curiosity_t1, valueType = 'sd')
+
+sd_curiosity_t2 <- sd(analysis_data$t2_curious)
+reportObject <- reproCheck(reportedValue = '1.25', obtainedValue = sd_curiosity_t2, valueType = 'sd')
+
+```
+
+> Predictions of interest at Time 1 (M = 3.54, SD = 1.01)
+> actual interest experienced at Time 2 (M = 3.82, SD = 0.89)
+
+```{r}
+
+# mean interest ratings and SDs for Times 1 and 2
+mean_interest_t1 <- mean(analysis_data$t1_interest_composite)
+reportObject <- reproCheck(reportedValue = '3.54', obtainedValue = mean_interest_t1, valueType = 'mean')
+
+mean_interest_t2 <- mean(analysis_data$t2_interest_composite)
+reportObject <- reproCheck(reportedValue = '3.82', obtainedValue = mean_interest_t2, valueType = 'mean')
+
+sd_interest_t1 <- sd(analysis_data$t1_interest_composite)
+reportObject <- reproCheck(reportedValue = '1.01', obtainedValue = sd_interest_t1, valueType = 'sd')
+
+sd_interest_t2 <- sd(analysis_data$t2_interest_composite)
+reportObject <- reproCheck(reportedValue = '0.89', obtainedValue = sd_interest_t2, valueType = 'sd')
+
+```
+
+
+## Inferential statistics
+
+$t$-test comparing curiosity ratings at Times 1 and 2.
+> Participants’ Time 1 predictions of their curiosity (M = 3.99, SD = 1.32) were lower than their actual curiosity ratings at Time 2, immediately before read- ing their responses (M = 4.34, SD = 1.25), t(105) = 2.88, p = .005, d = 0.27.
+
+```{r}
+
+curiosity_ttest <- t.test(analysis_data$t2_curious, analysis_data$t1_curious, paired=TRUE)
+curiosity_ttest
+
+reportObject <- reproCheck(reportedValue = '2.88', obtainedValue = curiosity_ttest$statistic, valueType = 't')
+reportObject <- reproCheck(reportedValue = '.005', obtainedValue = curiosity_ttest$p.value, valueType = 'p')
+
+
+```
+
+$t$-test comparing interest ratings at Times 1 and 2.
+
+ >Predictions of interest at Time 1 (M = 3.54, SD = 1.01) were lower than ratings of actual interest experienced at Time 2 (M = 3.82, SD = 0.89), t(105) = 3.10, p = .003, d = 0.29.
+
+
+```{r}
+
+interest_ttest <- t.test(analysis_data$t2_interest_composite, analysis_data$t1_interest_composite, paired=TRUE)
+interest_ttest
+
+reportObject <- reproCheck(reportedValue = '3.10', obtainedValue = interest_ttest$statistic, valueType = 't')
+reportObject <- reproCheck(reportedValue = '.003', obtainedValue = interest_ttest$p.value, valueType = 'p')
+
+```
+
+
+# Step 5: Conclusion
+
+All results from the orginal paper's Study 1 were accurately reproduced, no questions remain.
+
+```{r}
+reportObject <- reportObject %>%
+  filter(dummyRow == FALSE) %>% # remove the dummy row
+  select(-dummyRow) %>% # remove dummy row designation
+  mutate(articleID = articleID) %>% # add variables to report 
+  select(articleID, everything()) # make articleID first column
+
+# decide on final outcome
+if(any(reportObject$comparisonOutcome %in% c("MAJOR_ERROR", "DECISION_ERROR"))){
+  finalOutcome <- "Failure"
+}else{
+  finalOutcome <- "Success"
+}
+
+# collate report extra details
+reportExtras <- data.frame(articleID, pilotNames, copilotNames, pilotTTC, copilotTTC, pilotStartDate, copilotStartDate, completionDate, finalOutcome)
+
+# save report objects
+if(reportType == "pilot"){
+  write_csv(reportObject, "pilotReportDetailed.csv")
+  write_csv(reportExtras, "pilotReportExtras.csv")
+}
+
+if(reportType == "copilot"){
+  write_csv(reportObject, "copilotReportDetailed.csv")
+  write_csv(reportExtras, "copilotReportExtras.csv")
+}
+```
+
+# Session information
+
+```{r session_info, include=TRUE, echo=TRUE, results='markup'}
+devtools::session_info()
+```
