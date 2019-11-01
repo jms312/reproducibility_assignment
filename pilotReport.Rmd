@@ -33,10 +33,10 @@ The authors further report repeated-measures $t$-tests comparing curiosity and i
 
 Quoted from original study:
 
->Table 1 provides descriptive statistics for each measure
+Table 1 in Zhang et al. (2014) provides descriptive statistics for each measure
 for Study 1.
 
-> Participants’ Time 1 predictions of their curiosity (M = 3.99, SD = 1.32) were lower than their actual curiosity ratings at Time 2, immediately before reading their responses (M = 4.34, SD = 1.25), t(105) = 2.88, p = .005, d = 0.27. Participants also underestimated how interesting they would find their responses. Predictions of interest at Time 1 (M = 3.54, SD = 1.01) were lower than ratings of actual interest experienced at Time 2 (M = 3.82, SD = 0.89), t(105) = 3.10, p = .003, d = 0.29.
+> Participants’ Time 1 predictions of their curiosity (M = 3.99, SD = 1.32) were lower than their actual curiosity ratings at Time 2, immediately before reading their responses (M = 4.34, SD = 1.25), t(105) = 2.88, p = .005, d = 0.27. Participants also underestimated how interesting they would find their responses. Predictions of interest at Time 1 (M = 3.54, SD = 1.01) were lower than ratings of actual interest experienced at Time 2 (M = 3.82, SD = 0.89), t(105) = 3.10, p = .003, d = 0.29  (Zhang et al., 2014, p. 1852).
 
 All information to reproduce these outcomes is available.
 
@@ -104,7 +104,7 @@ analysis_data
 Below are quotes from the original article (separate chunkgs for curiosity and interest ratings). All results could be reproduced.
 
 > Participants’ Time 1 predictions of their curiosity (M = 3.99, SD = 1.32) 
-> actual curiosity ratings at Time 2, immediately before read- ing their responses (M = 4.34, SD = 1.25)
+> actual curiosity ratings at Time 2, immediately before read- ing their responses (M = 4.34, SD = 1.25).   (Zhang et al., 2014, p. 1852)
 
 
 ```{r}
@@ -125,7 +125,7 @@ reportObject <- reproCheck(reportedValue = '1.25', obtainedValue = sd_curiosity_
 ```
 
 > Predictions of interest at Time 1 (M = 3.54, SD = 1.01)
-> actual interest experienced at Time 2 (M = 3.82, SD = 0.89)
+> actual interest experienced at Time 2 (M = 3.82, SD = 0.89),   (Zhang et al., 2014, p. 1853)
 
 ```{r}
 
@@ -148,7 +148,7 @@ reportObject <- reproCheck(reportedValue = '0.89', obtainedValue = sd_interest_t
 ## Inferential statistics
 
 $t$-test comparing curiosity ratings at Times 1 and 2.
-> Participants’ Time 1 predictions of their curiosity (M = 3.99, SD = 1.32) were lower than their actual curiosity ratings at Time 2, immediately before read- ing their responses (M = 4.34, SD = 1.25), t(105) = 2.88, p = .005, d = 0.27.
+> Participants’ Time 1 predictions of their curiosity (M = 3.99, SD = 1.32) were lower than their actual curiosity ratings at Time 2, immediately before read- ing their responses (M = 4.34, SD = 1.25), t(105) = 2.88, p = .005, d = 0.27.   (Zhang et al., 2014, p. 1852)
 
 ```{r}
 
@@ -163,7 +163,7 @@ reportObject <- reproCheck(reportedValue = '.005', obtainedValue = curiosity_tte
 
 $t$-test comparing interest ratings at Times 1 and 2.
 
- >Predictions of interest at Time 1 (M = 3.54, SD = 1.01) were lower than ratings of actual interest experienced at Time 2 (M = 3.82, SD = 0.89), t(105) = 3.10, p = .003, d = 0.29.
+ >Predictions of interest at Time 1 (M = 3.54, SD = 1.01) were lower than ratings of actual interest experienced at Time 2 (M = 3.82, SD = 0.89), t(105) = 3.10, p = .003, d = 0.29   (Zhang et al., 2014, p. 1853)
 
 
 ```{r}
