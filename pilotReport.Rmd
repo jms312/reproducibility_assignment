@@ -110,6 +110,9 @@ Below are quotes from the original article (separate chunkgs for curiosity and i
 ```{r}
 
 # mean curiosity ratings and SDs for Times 1 and 2
+# NOTE: alternatively, one could calculate the means from all individual responses,
+# but it made more sense to calculate it as the mean of means
+
 mean_curiosity_t1 <- mean(analysis_data$t1_curious)
 reportObject <- reproCheck(reportedValue = '3.99', obtainedValue = mean_curiosity_t1, valueType = 'mean')
 

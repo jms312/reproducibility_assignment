@@ -1509,7 +1509,6 @@ div.tocify {
 
 <div id="report-details" class="section level1">
 <h1>Report Details</h1>
-<p>[PILOT/COPILOT ENTER RELEVANT REPORT DETAILS HERE]</p>
 <pre class="r"><code>articleID &lt;- &quot;2-10-2014&quot; # insert the article ID code here e.g., &quot;10-3-2015&quot;
 reportType &lt;- &#39;pilot&#39; # specify whether this is the &#39;pilot&#39; report or &#39;copilot&#39; report
 pilotNames &lt;- &quot;Julian M Siebert&quot; # insert the pilot&#39;s name here e.g., &quot;Tom Hardwicke&quot;.
@@ -1528,11 +1527,9 @@ completionDate &lt;- as.Date(&quot;11/03/19&quot;, format = &quot;%m/%d/%y&quot;
 <div id="target-outcomes" class="section level4">
 <h4>Target outcomes:</h4>
 <p>Quoted from original study:</p>
+<p>Table 1 in Zhang et al. (2014) provides descriptive statistics for each measure for Study 1.</p>
 <blockquote>
-<p>Table 1 provides descriptive statistics for each measure for Study 1.</p>
-</blockquote>
-<blockquote>
-<p>Participants’ Time 1 predictions of their curiosity (M = 3.99, SD = 1.32) were lower than their actual curiosity ratings at Time 2, immediately before reading their responses (M = 4.34, SD = 1.25), t(105) = 2.88, p = .005, d = 0.27. Participants also underestimated how interesting they would find their responses. Predictions of interest at Time 1 (M = 3.54, SD = 1.01) were lower than ratings of actual interest experienced at Time 2 (M = 3.82, SD = 0.89), t(105) = 3.10, p = .003, d = 0.29.</p>
+<p>Participants’ Time 1 predictions of their curiosity (M = 3.99, SD = 1.32) were lower than their actual curiosity ratings at Time 2, immediately before reading their responses (M = 4.34, SD = 1.25), t(105) = 2.88, p = .005, d = 0.27. Participants also underestimated how interesting they would find their responses. Predictions of interest at Time 1 (M = 3.54, SD = 1.01) were lower than ratings of actual interest experienced at Time 2 (M = 3.82, SD = 0.89), t(105) = 3.10, p = .003, d = 0.29 (Zhang et al., 2014, p. 1852).</p>
 </blockquote>
 <p>All information to reproduce these outcomes is available.</p>
 <hr />
@@ -1636,54 +1633,9 @@ analysis_data</code></pre>
 </div>
 <div id="descriptive-statistics" class="section level2">
 <h2>Descriptive statistics</h2>
-<div id="sample-characteristics" class="section level3">
-<h3>Sample characteristics</h3>
-<p>The original describes the initial sample (Time 1) as follows: &gt; One hundred thirty-five undergraduates (65.9% female, 33.3% male, 0.7% unreported; mean age = 20.4 years, SD = 1.0)</p>
-<p>Three months later: &gt; 106 of these students (78.5% response rate; 67.0% female, 32.1% male, 0.9% unreported; mean age = 20.4 years, SD = 1.0) completed a follow-up survey</p>
-<p>These sample descriptives regarding age and sex distribution are reproduced below.</p>
-<pre class="r"><code># mean and SD for age of 135 participants at Time 1
-analysis_data %&gt;%
-  summarize(age_mean_t1 = mean(age, na.rm=T), age_sd_t1 = sd(age, na.rm=T))</code></pre>
-<pre><code>## # A tibble: 1 x 2
-##   age_mean_t1 age_sd_t1
-##         &lt;dbl&gt;     &lt;dbl&gt;
-## 1        20.4      1.03</code></pre>
-<pre class="r"><code># mean and SD for age of 135 participants at Time 2 (row 2)
-analysis_data %&gt;%
-  filter(finished == 1) %&gt;%
-  summarise(age_mean_t2 = mean(age, na.rm=T), age_sd_t2 = sd(age, na.rm=T))</code></pre>
-<pre><code>## # A tibble: 1 x 2
-##   age_mean_t2 age_sd_t2
-##         &lt;dbl&gt;     &lt;dbl&gt;
-## 1        20.4      1.03</code></pre>
-<pre class="r"><code># sex distribution for 135 participants at Time 1 (1 = male, 2 = female)
-analysis_data %&gt;%
-  group_by(gender) %&gt;%
-  summarise(n_t1 = n()) %&gt;%
-  mutate(freq_t1 = n_t1 / sum(n_t1))</code></pre>
-<pre><code>## # A tibble: 3 x 3
-##        gender  n_t1 freq_t1
-##     &lt;dbl+lbl&gt; &lt;int&gt;   &lt;dbl&gt;
-## 1  1 [Male]      34 0.321  
-## 2  2 [Female]    71 0.670  
-## 3 NA              1 0.00943</code></pre>
-<pre class="r"><code># sex distribution for 135 participants at Time 2 (1 = male, 2 = female)
-analysis_data %&gt;%
-  filter(finished == 1) %&gt;%
-  group_by(gender) %&gt;%
-  summarise(n_t2 = n()) %&gt;%
-  mutate(freq_t2 = n_t2 / sum(n_t2))</code></pre>
-<pre><code>## # A tibble: 3 x 3
-##        gender  n_t2 freq_t2
-##     &lt;dbl+lbl&gt; &lt;int&gt;   &lt;dbl&gt;
-## 1  1 [Male]      34 0.321  
-## 2  2 [Female]    71 0.670  
-## 3 NA              1 0.00943</code></pre>
-</div>
-<div id="curiosity-and-interest-outcomes---descriptives" class="section level3">
-<h3>Curiosity and interest outcomes - Descriptives</h3>
+<p>Below are quotes from the original article (separate chunkgs for curiosity and interest ratings). All results could be reproduced.</p>
 <blockquote>
-<p>Participants’ Time 1 predictions of their curiosity (M = 3.99, SD = 1.32) actual curiosity ratings at Time 2, immediately before read- ing their responses (M = 4.34, SD = 1.25)</p>
+<p>Participants’ Time 1 predictions of their curiosity (M = 3.99, SD = 1.32) actual curiosity ratings at Time 2, immediately before read- ing their responses (M = 4.34, SD = 1.25). (Zhang et al., 2014, p. 1852)</p>
 </blockquote>
 <pre class="r"><code># mean curiosity ratings and SDs for Times 1 and 2
 mean_curiosity_t1 &lt;- mean(analysis_data$t1_curious)
@@ -1699,7 +1651,7 @@ reportObject &lt;- reproCheck(reportedValue = &#39;1.32&#39;, obtainedValue = sd
 reportObject &lt;- reproCheck(reportedValue = &#39;1.25&#39;, obtainedValue = sd_curiosity_t2, valueType = &#39;sd&#39;)</code></pre>
 <pre><code>## [1] &quot;MATCH for sd. The reported value (1.25) and the obtained value (1.25) differed by 0%. Note that the obtained value was rounded to 2 decimal places to match the reported value.&quot;</code></pre>
 <blockquote>
-<p>Predictions of interest at Time 1 (M = 3.54, SD = 1.01) actual interest experienced at Time 2 (M = 3.82, SD = 0.89)</p>
+<p>Predictions of interest at Time 1 (M = 3.54, SD = 1.01) actual interest experienced at Time 2 (M = 3.82, SD = 0.89), (Zhang et al., 2014, p. 1853)</p>
 </blockquote>
 <pre class="r"><code># mean interest ratings and SDs for Times 1 and 2
 mean_interest_t1 &lt;- mean(analysis_data$t1_interest_composite)
@@ -1715,10 +1667,9 @@ reportObject &lt;- reproCheck(reportedValue = &#39;1.01&#39;, obtainedValue = sd
 reportObject &lt;- reproCheck(reportedValue = &#39;0.89&#39;, obtainedValue = sd_interest_t2, valueType = &#39;sd&#39;)</code></pre>
 <pre><code>## [1] &quot;MATCH for sd. The reported value (0.89) and the obtained value (0.89) differed by 0%. Note that the obtained value was rounded to 2 decimal places to match the reported value.&quot;</code></pre>
 </div>
-</div>
 <div id="inferential-statistics" class="section level2">
 <h2>Inferential statistics</h2>
-<p><span class="math inline">\(t\)</span>-test comparing curiosity ratings at Times 1 and 2. &gt; Participants’ Time 1 predictions of their curiosity (M = 3.99, SD = 1.32) were lower than their actual curiosity ratings at Time 2, immediately before read- ing their responses (M = 4.34, SD = 1.25), t(105) = 2.88, p = .005, d = 0.27.</p>
+<p><span class="math inline">\(t\)</span>-test comparing curiosity ratings at Times 1 and 2. &gt; Participants’ Time 1 predictions of their curiosity (M = 3.99, SD = 1.32) were lower than their actual curiosity ratings at Time 2, immediately before read- ing their responses (M = 4.34, SD = 1.25), t(105) = 2.88, p = .005, d = 0.27. (Zhang et al., 2014, p. 1852)</p>
 <pre class="r"><code>curiosity_ttest &lt;- t.test(analysis_data$t2_curious, analysis_data$t1_curious, paired=TRUE)
 curiosity_ttest</code></pre>
 <pre><code>## 
@@ -1738,7 +1689,7 @@ curiosity_ttest</code></pre>
 <pre><code>## [1] &quot;MATCH for p. The reported value (0.005) and the obtained value (0.005) differed by 0%. Note that the obtained value was rounded to 3 decimal places to match the reported value.&quot;</code></pre>
 <p><span class="math inline">\(t\)</span>-test comparing interest ratings at Times 1 and 2.</p>
 <blockquote>
-<p>Predictions of interest at Time 1 (M = 3.54, SD = 1.01) were lower than ratings of actual interest experienced at Time 2 (M = 3.82, SD = 0.89), t(105) = 3.10, p = .003, d = 0.29.</p>
+<p>Predictions of interest at Time 1 (M = 3.54, SD = 1.01) were lower than ratings of actual interest experienced at Time 2 (M = 3.82, SD = 0.89), t(105) = 3.10, p = .003, d = 0.29 (Zhang et al., 2014, p. 1853)</p>
 </blockquote>
 <pre class="r"><code>interest_ttest &lt;- t.test(analysis_data$t2_interest_composite, analysis_data$t1_interest_composite, paired=TRUE)
 interest_ttest</code></pre>
@@ -1761,7 +1712,7 @@ interest_ttest</code></pre>
 </div>
 <div id="step-5-conclusion" class="section level1">
 <h1>Step 5: Conclusion</h1>
-<p>[Please include a text summary describing your findings. If this reproducibility check was a failure, you should note any suggestions as to what you think the likely cause(s) might be.]</p>
+<p>All results from the orginal paper’s Study 1 were accurately reproduced, no questions remain.</p>
 <pre class="r"><code>reportObject &lt;- reportObject %&gt;%
   filter(dummyRow == FALSE) %&gt;% # remove the dummy row
   select(-dummyRow) %&gt;% # remove dummy row designation
@@ -1791,7 +1742,6 @@ if(reportType == &quot;copilot&quot;){
 </div>
 <div id="session-information" class="section level1">
 <h1>Session information</h1>
-<p>[This function will output information about the package versions used in this report:]</p>
 <pre class="r"><code>devtools::session_info()</code></pre>
 <pre><code>## ─ Session info ──────────────────────────────────────────────────────────
 ##  setting  value                       
@@ -1803,7 +1753,7 @@ if(reportType == &quot;copilot&quot;){
 ##  collate  en_US.UTF-8                 
 ##  ctype    en_US.UTF-8                 
 ##  tz       America/Los_Angeles         
-##  date     2019-10-31                  
+##  date     2019-11-07                  
 ## 
 ## ─ Packages ──────────────────────────────────────────────────────────────
 ##  package      * version date       lib
